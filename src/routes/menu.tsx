@@ -16,6 +16,7 @@ function MenuPage() {
     mutationFn: async ({ menu }: { menu: string }) => {
       try {
         // 주문 API 호출;
+        console.log(menu)
         navigate({ to: '/order-complete' })
       } catch (error) {}
     },
