@@ -16,7 +16,7 @@ function IntroPage() {
       <Text textStyle="4xl">
         Shoong~
         <br />
-        반가워요!
+        반가워요 👋
       </Text>
       <Spacing size={40} />
       <Input

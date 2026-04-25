@@ -45,7 +45,7 @@ function MenuList({ onClickMenu }: { onClickMenu: (menu: Menu) => void }) {
   return (
     <>
       {menus.map((menu) => (
-        <Row key={menu.id} onClick={() => onClickMenu(menu)}>
+        <Row key={menu.id} icon="👉" onClick={() => onClickMenu(menu)}>
           {menu.name}
         </Row>
       ))}

@@ -13,7 +13,7 @@ export const Route = createFileRoute('/orders')({
 function RouteComponent() {
   return (
     <>
-      <Text textStyle="4xl">주문 조회</Text>
+      <Text textStyle="4xl">🚚 주문 조회</Text>
       <Spacing size={40} />
       <Suspense>
         <OrderList />
@@ -30,7 +30,7 @@ function OrderList() {
   return (
     <Stack>
       {orders.map((order) => (
-        <Row>
+        <Row icon="👉">
           {order.menu.name} ({order.status})
         </Row>
       ))}

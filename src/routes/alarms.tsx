@@ -13,7 +13,7 @@ export const Route = createFileRoute('/alarms')({
 function RouteComponent() {
   return (
     <>
-      <Text textStyle="4xl">알림 조회</Text>
+      <Text textStyle="4xl">🔔 알림 조회</Text>
       <Spacing size={40} />
       <Suspense>
         <AlarmList />
@@ -30,7 +30,9 @@ function AlarmList() {
   return (
     <Stack>
       {alarms.map((alarm) => (
-        <Row key={alarm.id}>{alarm.message}</Row>
+        <Row key={alarm.id} icon="👉">
+          {alarm.message}
+        </Row>
       ))}
     </Stack>
   )
