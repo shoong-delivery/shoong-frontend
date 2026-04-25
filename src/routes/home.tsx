@@ -1,7 +1,7 @@
 import { Spacing } from '#/components/Spacing'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { Stack, Text } from '@chakra-ui/react'
-import { nicknameStorage } from '#/storages/nickname'
+import { userNameStorage } from '#/storages/userName'
 import { Row } from '#/components/Row'
 
 export const Route = createFileRoute('/home')({
@@ -14,7 +14,7 @@ function HomePage() {
   return (
     <>
       <Text textStyle="4xl">
-        {nicknameStorage.get()}님,
+        {userNameStorage.get()}님,
         <br />
         반가워요!
       </Text>

@@ -1,7 +1,10 @@
 import { Row } from '#/components/Row'
 import { Spacing } from '#/components/Spacing'
+import { getOrdersQueryOptions } from '#/query-options/order'
 import { Stack, Text } from '@chakra-ui/react'
+import { useSuspenseQuery } from '@tanstack/react-query'
 import { createFileRoute } from '@tanstack/react-router'
+import { Suspense } from 'react'
 
 export const Route = createFileRoute('/orders')({
   component: RouteComponent,
@@ -12,11 +15,25 @@ function RouteComponent() {
     <>
       <Text textStyle="4xl">주문 조회</Text>
       <Spacing size={40} />
-      <Stack>
-        <Row>짬뽕 (조리 중)</Row>
-        <Row>짜장면 (배달 완료)</Row>
-        <Row>탕수육 (배달 중)</Row>
-      </Stack>
+      <Suspense>
+        <OrderList />
+      </Suspense>
     </>
+  )
+}
+
+function OrderList() {
+  const {
+    data: { orders },
+  } = useSuspenseQuery(getOrdersQueryOptions())
+
+  return (
+    <Stack>
+      {orders.map((order) => (
+        <Row>
+          {order.menu.name} ({order.status})
+        </Row>
+      ))}
+    </Stack>
   )
 }
