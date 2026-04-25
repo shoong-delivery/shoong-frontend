@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { routeTree } from './routeTree.gen'
+import { initMSW } from './mocks/init'
 
 const router = createRouter({
   routeTree,
@@ -19,11 +20,8 @@ const rootElement = document.getElementById('app')!
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
 
-  // Start MSW in development
-  if (import.meta.env.DEV) {
-    import('./mocks/browser').then(({ worker }) => {
-      worker.start({ onUnhandledRequest: 'bypass' })
-    })
+  if (import.meta.env.VITE_MSW_ENABLED === 'true') {
+    initMSW()
   }
 
   root.render(<RouterProvider router={router} />)
