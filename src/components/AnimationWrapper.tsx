@@ -1,6 +1,6 @@
-import { useAnimation } from 'motion/react'
-import { Children, useEffect, useState, type ReactNode } from 'react'
-import { AnimatePresence, motion } from 'motion/react'
+import type { ReactNode } from 'react'
+import { Children, useEffect, useState } from 'react'
+import { useAnimation, AnimatePresence, motion } from 'motion/react'
 
 import { useInterval } from 'react-simplikit'
 
@@ -19,26 +19,20 @@ export function AnimationWrapper({
   children: ReactNode
   type: AnimationType
 }) {
-  if (type === 'zoomIn') {
-    return <ZoomInAnimation>{children}</ZoomInAnimation>
+  switch (type) {
+    case 'zoomIn':
+      return <ZoomInAnimation>{children}</ZoomInAnimation>
+    case 'lowScaleOnTap':
+      return <ScaleAnimation level="low">{children}</ScaleAnimation>
+    case 'highScaleOnTap':
+      return <ScaleAnimation level="high">{children}</ScaleAnimation>
+    case 'flipItems':
+      return <FlipItemsAnimation>{children}</FlipItemsAnimation>
+    case 'shake':
+      return <ShakeAnimation>{children}</ShakeAnimation>
+    case 'wave':
+      return <WaveAnimation>{children}</WaveAnimation>
   }
-  if (type === 'lowScaleOnTap') {
-    return <ScaleAnimation level="low">{children}</ScaleAnimation>
-  }
-  if (type === 'highScaleOnTap') {
-    return <ScaleAnimation level="high">{children}</ScaleAnimation>
-  }
-  if (type === 'flipItems') {
-    return <FlipItemsAnimation>{children}</FlipItemsAnimation>
-  }
-  if (type === 'shake') {
-    return <ShakeAnimation>{children}</ShakeAnimation>
-  }
-  if (type === 'wave') {
-    return <WaveAnimation>{children}</WaveAnimation>
-  }
-
-  throw new Error('정의되지 않은 애니메이션 타입입니다')
 }
 
 function ZoomInAnimation({ children }: { children: ReactNode }) {
@@ -67,22 +61,20 @@ function ScaleAnimation({
   children: ReactNode
   level: 'low' | 'high'
 }) {
-  if (level === 'low') {
-    return (
-      <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-        {children}
-      </motion.div>
-    )
+  switch (level) {
+    case 'low':
+      return (
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          {children}
+        </motion.div>
+      )
+    case 'high':
+      return (
+        <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
+          {children}
+        </motion.div>
+      )
   }
-  if (level === 'high') {
-    return (
-      <motion.div whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.8 }}>
-        {children}
-      </motion.div>
-    )
-  }
-
-  throw new Error('정의되지 않은 level 입니다')
 }
 
 function FlipItemsAnimation({
