@@ -1,0 +1,7 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# 브랜치 변경(체크아웃)일 때만 실행
+if [ $3 -eq 1 ]; then
+  npm install
+fi
