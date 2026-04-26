@@ -28,7 +28,7 @@ function HomePage() {
         <Row icon="🚚" onClick={() => navigate({ to: '/orders' })}>
           주문 조회
         </Row>
-        <Row icon="🔔" onClick={() => navigate({ to: '/alarms' })}>
+        <Row icon="🔔" onClick={() => navigate({ to: '/notifications' })}>
           알람 조회
         </Row>
       </Stack>

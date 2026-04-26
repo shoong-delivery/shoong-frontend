@@ -2,13 +2,15 @@ import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import { userNameStorage } from '#/storages/userName'
 
+export const BASE_URL = 'http://k8s-shoong-shoongin-12c1c63fbf-694917975.us-east-1.elb.amazonaws.com'
+
 interface HttpClient extends AxiosInstance {
   get: <T = any>(url: string, config?: AxiosRequestConfig) => Promise<T>
 }
 
 const axiosConfig: AxiosRequestConfig = {
   // TODO: 임시 BASE_URL, 나중에 환경변수로 관리하기
-  baseURL: 'https://shoong-backend.fly.dev',
+  baseURL: BASE_URL,
 }
 
 function createHttpClient() {

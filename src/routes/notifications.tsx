@@ -4,9 +4,9 @@ import { Spacing } from '#/components/Spacing'
 import { Row } from '#/components/Row'
 import { Suspense } from 'react'
 import { useSuspenseQuery } from '@tanstack/react-query'
-import { getAlaramsQueryOptions } from '#/query-options/alarm'
+import { getNotificationQueryOptions } from '#/query-options/notification'
 
-export const Route = createFileRoute('/alarms')({
+export const Route = createFileRoute('/notifications')({
   component: RouteComponent,
 })
 
@@ -25,7 +25,7 @@ function RouteComponent() {
 function AlarmList() {
   const {
     data: { alarms },
-  } = useSuspenseQuery(getAlaramsQueryOptions())
+  } = useSuspenseQuery(getNotificationQueryOptions())
 
   return (
     <Stack>

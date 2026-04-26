@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw'
+import { BASE_URL } from '#/utils/httpClient'
 
 // TODO: 임시 BASE_URL, 나중에 환경변수로 관리하기
 
@@ -27,27 +28,27 @@ const mockOrders = [
 
 // Define handlers for your API endpoints
 export const handlers = [
-  // GET /api/alarms
-  http.get('https://shoong-backend.fly.dev/api/alarms', () => {
+  // GET /notify
+  http.get(`${BASE_URL}/notify`, () => {
     return HttpResponse.json({
       alarms: mockAlarms,
     })
   }),
 
-  // GET /api/order/menu
-  http.get('https://shoong-backend.fly.dev/api/order/menu', () => {
+  // GET /order/menu
+  http.get(`${BASE_URL}/order/menu`, () => {
     return HttpResponse.json({
       menus: mockMenus,
     })
   }),
 
-  // POST /api/order/:menuId
-  http.post('https://shoong-backend.fly.dev/api/order/:menuId', () => {
+  // POST /order/:menuId
+  http.post(`${BASE_URL}/order/:menuId`, () => {
     return HttpResponse.json(null)
   }),
 
-  // GET /api/order
-  http.get('https://shoong-backend.fly.dev/api/order', () => {
+  // GET /order/list
+  http.get(`${BASE_URL}/order/list`, () => {
     return HttpResponse.json({
       orders: mockOrders,
     })

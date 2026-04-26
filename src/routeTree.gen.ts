@@ -11,10 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as OrdersRouteImport } from './routes/orders'
 import { Route as OrderCompleteRouteImport } from './routes/order-complete'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as MenuRouteImport } from './routes/menu'
 import { Route as IntroRouteImport } from './routes/intro'
 import { Route as HomeRouteImport } from './routes/home'
-import { Route as AlarmsRouteImport } from './routes/alarms'
 import { Route as IndexRouteImport } from './routes/index'
 
 const OrdersRoute = OrdersRouteImport.update({
@@ -25,6 +25,11 @@ const OrdersRoute = OrdersRouteImport.update({
 const OrderCompleteRoute = OrderCompleteRouteImport.update({
   id: '/order-complete',
   path: '/order-complete',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MenuRoute = MenuRouteImport.update({
@@ -42,11 +47,6 @@ const HomeRoute = HomeRouteImport.update({
   path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AlarmsRoute = AlarmsRouteImport.update({
-  id: '/alarms',
-  path: '/alarms',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -55,29 +55,29 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/alarms': typeof AlarmsRoute
   '/home': typeof HomeRoute
   '/intro': typeof IntroRoute
   '/menu': typeof MenuRoute
+  '/notifications': typeof NotificationsRoute
   '/order-complete': typeof OrderCompleteRoute
   '/orders': typeof OrdersRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/alarms': typeof AlarmsRoute
   '/home': typeof HomeRoute
   '/intro': typeof IntroRoute
   '/menu': typeof MenuRoute
+  '/notifications': typeof NotificationsRoute
   '/order-complete': typeof OrderCompleteRoute
   '/orders': typeof OrdersRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/alarms': typeof AlarmsRoute
   '/home': typeof HomeRoute
   '/intro': typeof IntroRoute
   '/menu': typeof MenuRoute
+  '/notifications': typeof NotificationsRoute
   '/order-complete': typeof OrderCompleteRoute
   '/orders': typeof OrdersRoute
 }
@@ -85,38 +85,38 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/alarms'
     | '/home'
     | '/intro'
     | '/menu'
+    | '/notifications'
     | '/order-complete'
     | '/orders'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/alarms'
     | '/home'
     | '/intro'
     | '/menu'
+    | '/notifications'
     | '/order-complete'
     | '/orders'
   id:
     | '__root__'
     | '/'
-    | '/alarms'
     | '/home'
     | '/intro'
     | '/menu'
+    | '/notifications'
     | '/order-complete'
     | '/orders'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AlarmsRoute: typeof AlarmsRoute
   HomeRoute: typeof HomeRoute
   IntroRoute: typeof IntroRoute
   MenuRoute: typeof MenuRoute
+  NotificationsRoute: typeof NotificationsRoute
   OrderCompleteRoute: typeof OrderCompleteRoute
   OrdersRoute: typeof OrdersRoute
 }
@@ -135,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/order-complete'
       fullPath: '/order-complete'
       preLoaderRoute: typeof OrderCompleteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/menu': {
@@ -158,13 +165,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/alarms': {
-      id: '/alarms'
-      path: '/alarms'
-      fullPath: '/alarms'
-      preLoaderRoute: typeof AlarmsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/': {
       id: '/'
       path: '/'
@@ -177,10 +177,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AlarmsRoute: AlarmsRoute,
   HomeRoute: HomeRoute,
   IntroRoute: IntroRoute,
   MenuRoute: MenuRoute,
+  NotificationsRoute: NotificationsRoute,
   OrderCompleteRoute: OrderCompleteRoute,
   OrdersRoute: OrdersRoute,
 }
