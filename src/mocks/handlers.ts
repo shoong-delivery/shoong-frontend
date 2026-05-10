@@ -26,7 +26,7 @@ const mockOrders = [
 
 // Define handlers for your API endpoints
 export const handlers = [
-  http.get(`${BASE_URL}/api/notifications/`, () => {
+  http.get(`${BASE_URL}/api/notifications`, () => {
     return HttpResponse.json({
       alarms: mockAlarms,
     })
