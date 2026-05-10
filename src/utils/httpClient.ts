@@ -2,14 +2,13 @@ import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import axios from 'axios'
 import { userNameStorage } from '#/storages/userName'
 
-export const BASE_URL = 'http://k8s-shoong-shoongin-12c1c63fbf-694917975.us-east-1.elb.amazonaws.com'
+export const BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 interface HttpClient extends AxiosInstance {
   get: <T = any>(url: string, config?: AxiosRequestConfig) => Promise<T>
 }
 
 const axiosConfig: AxiosRequestConfig = {
-  // TODO: 임시 BASE_URL, 나중에 환경변수로 관리하기
   baseURL: BASE_URL,
 }
 

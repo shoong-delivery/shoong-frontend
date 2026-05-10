@@ -6,5 +6,5 @@ export const fetchNotifications = () => {
       id: string
       message: string
     }[]
-  }>('/notify')
+  }>('/api/notifications/')
 }
