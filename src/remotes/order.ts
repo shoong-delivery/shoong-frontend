@@ -2,7 +2,7 @@ import type { Menu } from '#/models/menu'
 import { httpClient } from '#/utils/httpClient'
 
 export const orderMenu = ({ menuId }: { menuId: string }) => {
-  return httpClient.post<void>(`/order/${menuId}`)
+  return httpClient.post<void>(`/api/orders/${menuId}`)
 }
 
 export const fetchOrders = () => {
@@ -16,5 +16,5 @@ export const fetchOrders = () => {
         | '라이더픽업완료'
         | '배달완료'
     }>
-  }>('/order/list')
+  }>('/api/orders/list')
 }

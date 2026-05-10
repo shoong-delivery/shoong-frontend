@@ -1,8 +1,6 @@
 import { http, HttpResponse } from 'msw'
 import { BASE_URL } from '#/utils/httpClient'
 
-// TODO: 임시 BASE_URL, 나중에 환경변수로 관리하기
-
 // Mock data
 const mockMenus = [
   { id: '1', name: '김치찌개' },
@@ -28,27 +26,23 @@ const mockOrders = [
 
 // Define handlers for your API endpoints
 export const handlers = [
-  // GET /notify
-  http.get(`${BASE_URL}/notify`, () => {
+  http.get(`${BASE_URL}/api/notifications/`, () => {
     return HttpResponse.json({
       alarms: mockAlarms,
     })
   }),
 
-  // GET /order/menu
-  http.get(`${BASE_URL}/order/menu`, () => {
+  http.get(`${BASE_URL}/api/orders/menu`, () => {
     return HttpResponse.json({
       menus: mockMenus,
     })
   }),
 
-  // POST /order/:menuId
-  http.post(`${BASE_URL}/order/:menuId`, () => {
+  http.post(`${BASE_URL}/api/orders/:menuId`, () => {
     return HttpResponse.json(null)
   }),
 
-  // GET /order/list
-  http.get(`${BASE_URL}/order/list`, () => {
+  http.get(`${BASE_URL}/api/orders/list`, () => {
     return HttpResponse.json({
       orders: mockOrders,
     })
