@@ -9,6 +9,7 @@ on:
     branches:
       - main
       - master
+  workflow_dispatch:
 
 jobs:
   typecheck-and-lint:
@@ -35,7 +36,7 @@ jobs:
 
   deploy:
     needs: typecheck-and-lint
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions:
       id-token: write   # OIDC
