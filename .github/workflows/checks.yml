@@ -32,3 +32,48 @@ jobs:
 
       - name: Lint
         run: npm run lint
+
+  deploy:
+    needs: typecheck-and-lint
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # OIDC
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '23.5.0'
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      # OIDC로 AWS 인증 (IAM OIDC 모듈이 이미 있음)
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: us-east-1
+
+      # index.html은 no-cache, 나머지는 1년 캐시
+      - name: Upload index.html
+        run: |
+          aws s3 cp dist/index.html s3://${{ secrets.S3_BUCKET }}/ \
+            --cache-control "no-cache, no-store, must-revalidate"
+
+      - name: Upload assets
+        run: |
+          aws s3 sync dist/ s3://${{ secrets.S3_BUCKET }}/ \
+            --exclude "index.html" \
+            --cache-control "max-age=31536000, immutable" \
+            --delete
+
+      # CloudFront index.html 캐시 무효화
+      - name: Invalidate CloudFront
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CF_DISTRIBUTION_ID }} \
+            --paths "/index.html"
